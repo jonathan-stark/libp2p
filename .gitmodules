@@ -1,0 +1,21 @@
+[submodule "c-multihash"]
+	path = c-multihash
+	url = https://github.com/kenCode-de/c-multihash.git
+[submodule "c-libp2p"]
+	path = c-libp2p
+	url = https://github.com/kenCode-de/c-libp2p.git
+[submodule "c-multicodec"]
+	path = c-multicodec
+	url = https://github.com/kenCode-de/c-multicodec.git
+[submodule "c-ipfs"]
+	path = c-ipfs
+	url = https://github.com/kenCode-de/c-ipfs.git
+[submodule "c-protobuf"]
+	path = c-protobuf
+	url = https://github.com/kenCode-de/c-protobuf.git
+[submodule "c-multiaddr"]
+	path = c-multiaddr
+	url = https://github.com/kenCode-de/c-multiaddr.git
+[submodule "lmdb"]
+	path = lmdb
+	url = https://github.com/jmjatlanta/lmdb.git
