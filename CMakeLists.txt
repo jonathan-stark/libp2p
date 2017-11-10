@@ -6,6 +6,8 @@ if( NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/c-ipfs/.git" )
     )
 endif()
 
+FIND_PACKAGE(CURL)
+
 add_library(lmdb
     lmdb/libraries/liblmdb/mdb.c
     lmdb/libraries/liblmdb/mdb_copy.c
@@ -170,6 +172,8 @@ add_library(c-libp2p
     c-libp2p/net/udp.c
 
     c-libp2p/os/utils.c
+    c-libp2p/os/memstream.c
+    c-libp2p/os/timespec.c
 
     c-libp2p/peer/peer.c
     c-libp2p/peer/peerstore.c
@@ -188,10 +192,16 @@ add_library(c-libp2p
     c-libp2p/secio/propose.c
     c-libp2p/secio/secio.c
 
+    c-libp2p/utils/urlencode.c
     c-libp2p/utils/linked_list.c
     c-libp2p/utils/logger.c
     c-libp2p/utils/string_list.c
     c-libp2p/utils/vector.c
+
+    c-libp2p/yamux/yamux.c
+    c-libp2p/yamux/session.c
+    c-libp2p/yamux/frame.c
+    c-libp2p/yamux/stream.c
 )
 
 
@@ -213,6 +223,7 @@ add_library(c-ipfs
     c-ipfs/commands/command_option.c
 
     c-ipfs/cmd/ipfs/init.c
+    c-ipfs/cmd/cli.c
 #    c-ipfs/cmd/ipfs/main.c
 
     c-ipfs/core/api.c
@@ -223,6 +234,9 @@ add_library(c-ipfs
 #    c-ipfs/core/net.c
     c-ipfs/core/null.c
     c-ipfs/core/ping.c
+    c-ipfs/core/client_api.c
+    c-ipfs/core/http_request.c
+ 
     c-ipfs/datastore/ds_helper.c
     c-ipfs/datastore/key.c
     c-ipfs/dnslink/dnslink.c
@@ -230,6 +244,11 @@ add_library(c-ipfs
     c-ipfs/importer/exporter.c
     c-ipfs/importer/importer.c
     c-ipfs/importer/resolver.c
+
+    c-ipfs/journal/journal.c
+    c-ipfs/journal/journal_entry.c
+    c-ipfs/journal/journal_message.c
+
     c-ipfs/merkledag/merkledag.c
     c-ipfs/merkledag/node.c
     c-ipfs/multibase/multibase.c
@@ -241,7 +260,10 @@ add_library(c-ipfs
     c-ipfs/namesys/pb.c
     c-ipfs/namesys/proquint.c
     c-ipfs/namesys/proquint_test.c
-#    c-ipfs/namesys/publisher.c
+    c-ipfs/namesys/name.c
+    c-ipfs/namesys/resolver.c
+
+    c-ipfs/namesys/publisher.c
 #    c-ipfs/namesys/routing.c
     c-ipfs/path/path.c
 #    c-ipfs/path/resolver.c
@@ -259,7 +281,8 @@ add_library(c-ipfs
     c-ipfs/repo/fsrepo/fs_repo.c
     c-ipfs/repo/fsrepo/jsmn.c
     c-ipfs/repo/fsrepo/lmdb_datastore.c
-
+    c-ipfs/repo/fsrepo/lmdb_journalstore.c
+    c-ipfs/repo/fsrepo/lmdb_cursor.c
 
     c-ipfs/routing/k_routing.c
     c-ipfs/routing/offline.c
@@ -277,6 +300,7 @@ add_library(c-ipfs
     c-ipfs/exchange/bitswap/peer_request_queue.c
     c-ipfs/exchange/bitswap/want_manager.c
     c-ipfs/exchange/bitswap/wantlist_queue.c
+    
 )
 
 target_include_directories(c-ipfs PUBLIC
@@ -286,6 +310,10 @@ target_include_directories(c-ipfs PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/c-multiaddr/include/
     ${CMAKE_CURRENT_SOURCE_DIR}/c-multihash/include/
     ${CMAKE_CURRENT_SOURCE_DIR}/lmdb/libraries/liblmdb/
+    ${CURL_INCLUDE_DIR}
+)
+target_link_libraries(c-ipfs PUBLIC
+    ${CURL_LIBRARIES}
 )
 
 add_executable(ipfs 
