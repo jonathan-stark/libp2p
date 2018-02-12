@@ -71,6 +71,7 @@ add_library(c-libp2p
     c-libp2p/conn/transport_dialer.c
     c-libp2p/conn/dialer.c			
     c-libp2p/conn/tcp_transport_dialer.c
+    c-libp2p/identify/identify.c
 
     c-libp2p/crypto/aes.c
     c-libp2p/crypto/ephemeral.c
@@ -170,6 +171,8 @@ add_library(c-libp2p
     c-libp2p/net/socket.c
     c-libp2p/net/tcp.c
     c-libp2p/net/udp.c
+    c-libp2p/net/stream.c
+    c-libp2p/net/connectionstream.c
 
     c-libp2p/os/utils.c
     c-libp2p/os/memstream.c
@@ -197,7 +200,9 @@ add_library(c-libp2p
     c-libp2p/utils/logger.c
     c-libp2p/utils/string_list.c
     c-libp2p/utils/vector.c
-
+    c-libp2p/utils/threadsafe_buffer.c
+    c-libp2p/swarm/swarm.c
+ 
     c-libp2p/yamux/yamux.c
     c-libp2p/yamux/session.c
     c-libp2p/yamux/frame.c
@@ -236,7 +241,8 @@ add_library(c-ipfs
     c-ipfs/core/ping.c
     c-ipfs/core/client_api.c
     c-ipfs/core/http_request.c
- 
+    c-ipfs/core/swarm.c
+  
     c-ipfs/datastore/ds_helper.c
     c-ipfs/datastore/key.c
     c-ipfs/dnslink/dnslink.c
